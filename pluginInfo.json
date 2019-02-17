@@ -1,0 +1,18 @@
+{
+	"repoName": "fpp-edmrds",
+	"name": "EDM audio",
+	"author": "Ryan Lucas (drlucas)",
+	"description": "Basic RDS support for the EDM",
+	"homeURL": "https://github.com/FalconChristmas/fpp-edmrds",
+	"srcURL": "https://github.com/FalconChristmas/fpp-edmrds.git",
+	"bugURL": "https://github.com/FalconChristmas/fpp-edmrds/issues",
+	"allowUpdates": 1,
+	"versions": [
+		{
+			"minFPPVersion": "2.0",
+			"maxFPPVersion": "0",
+			"branch": "master",
+			"sha": ""
+		}
+	]
+}

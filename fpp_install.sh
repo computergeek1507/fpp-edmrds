@@ -1,28 +1,23 @@
 #!/bin/bash
 
-pushd $(dirname $(which $0))
+sudo apt-get -y update
+sudo apt-get -y install pigpio python-pigpio python3-pigpio
 
-cp pigpiod /etc/init.d
-sudo chmod 755 /etc/init.d/pigpiod 
-sudo chmod +x /home/fpp/media/plugins/edmrds/callbacks.py
-sudo chmod +x /home/fpp/media/plugins/edmrds/rds-song.py 
+sudo systemctl enable pigpiod
 
-/usr/bin/wget http://abyz.co.uk/rpi/pigpio/VERSIONS/pigpio-V22.zip
-sudo mv pigpio-V22.zip pigpio.zip
-unzip pigpio.zip 
-cd PIGPIO/
-sudo sed  '2619s/data/str(data)/' -i pigpio.py
-make
-make install 
+########################################################################
+# Raspbian Stretch defaults to IPv6 before IPv4 so this breaks pigpiod
+# startup.  This is a known issue documented in pigpiod github at:
+#
+# https://github.com/joan2937/pigpio/issues/203
+#
+# The work-around is to force binding to 127.0.0.1
+#
+sudo sed -i -e "s/pigpiod -l/pigpiod -l -n 127.0.0.1/" /lib/systemd/system/pigpiod.service
+sudo systemctl daemon-reload
+########################################################################
 
-cd /etc/init.d
-update-rc.d pigpiod defaults 99
-complete -W "$(ls /etc/init.d/)" service
+sudo systemctl start pigpiod
 
-
-service pigpiod start
 sudo python /home/fpp/media/plugins/edmrds/rds-song.py -i
-
-
-popd
 
