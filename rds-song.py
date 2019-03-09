@@ -21,7 +21,7 @@ args = parser.parse_args()
 
 pi = pigpio.pi()
 
-s = bb_I2C.I2C(pi, 28, 29, 600)
+s = bb_I2C.I2C(pi, 23, 24, 600)
 
 if args.change:
    #we have a station name to change

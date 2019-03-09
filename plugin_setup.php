@@ -29,9 +29,7 @@ $("#nowplaying").load('/plugin.php?nopage=1&plugin=edmrds&page=nowplaying.php');
 
 <p>Before you use the RDS capabilities of your EDM FM transmitter you must be comfortable 
 with soldering and connect the SCL and SDA pins from the RDS chip located within the EDM FM transmitter 
-to two pins on the raspberry Pi. Currently the two PINs to use are pin 28 and 29 for SCL and SDA respectively. <br><br>
-See http://www.raspberrypi-spy.co.uk/2012/09/raspberry-pi-p5-header/ for more info on where pin 28 and 29 are located.<br>
-
+to two pins on the raspberry Pi. Currently the two PINs to use are pin 23 and 24 for SCL and SDA respectively. <br><br>
 <br>
 Configuration of the RDS settings for the EDM transmitter can be found here: http://www.edmdesign.com/docs/EDM-TX-RDS.pdf.
 Information on the RDS chip inside the EDM transmitter can be found here: http://pira.cz/rds/mrds192.pdf
