@@ -56,7 +56,7 @@ Manually Set Station ID<br>
 Station ID:</span>
 
 <p>To report a bug, please file it against the fpp-vastfmt plugin project here:
-<a href="https://github.com/drlucas/fpp-edmrds/issues/new" target="_new">fpp-edmrds GitHub Issues</a></p>
+<a href="https://github.com/FalconChristmas/fpp-edmrds/issues/new" target="_new">fpp-edmrds GitHub Issues</a></p>
 
 </fieldset>
 </div>
