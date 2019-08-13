@@ -8,7 +8,7 @@ if(isset($_POST['submit']))
         }
         else
         {
-    echo exec("python /home/fpp/media/plugins/edmrds/rds-song.py -c $name 2>&1 ");
+    echo exec("python /home/fpp/media/plugins/fpp-edmrds/rds-song.py -c $name 2>&1 ");
         }
 }
 ?>
