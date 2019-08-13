@@ -40,9 +40,9 @@ if args.data:
    data = json.loads(mydataarg)
    title = data['title'] 
    print("Title: %s" %title)
-   os.chdir("/home/fpp/media/plugins/edmrds/")
+   os.chdir("/home/fpp/media/plugins/fpp-edmrds/")
    directory = os.getcwd()
    print("Directory: %s" %directory)
    #from subprocess import call
    #call(["rds-song.py", "-s %title"])
-   subprocess.call(['/home/fpp/media/plugins/edmrds/rds-song.py', '-s', title])
+   subprocess.call(['/home/fpp/media/plugins/fpp-edmrds/rds-song.py', '-s', title])
