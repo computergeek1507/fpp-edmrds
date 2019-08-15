@@ -17,7 +17,7 @@ if(isset($_POST['submit']))
 <head>
 <script type="text/javascript">
 $(document).ready(function(){
-$("#nowplaying").load('/plugin.php?nopage=1&plugin=edmrds&page=nowplaying.php');
+$("#nowplaying").load('/plugin.php?nopage=1&plugin=fpp-edmrds&page=nowplaying.php');
 });
 
 </script>
@@ -43,7 +43,7 @@ File Manager in the Content Setup menu. Once the tags are set, this plug in will
 <li>NONE</li>
 </ul>
 
-<form method="post" action="/plugin.php?plugin=edmrds&page=plugin_setup.php">
+<form method="post" action="/plugin.php?plugin=fpp-edmrds&page=plugin_setup.php">
 Manually Set Station ID<br>
 <p><label for="station_ID">Station ID:</label>
 <input type="text" name="station" id="station_ID"></input>
