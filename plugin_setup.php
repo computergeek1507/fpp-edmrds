@@ -1,64 +1,60 @@
-<?php
-if(isset($_POST['submit']))
-{
-    $name = htmlspecialchars($_POST['station']);
-    if (strlen($name) >8)
-        { 
-                echo "Station ID must be less than 8 characters"; 
-        }
-        else
-        {
-    echo exec("python /home/fpp/media/plugins/fpp-edmrds/rds-song.py -c $name 2>&1 ");
-        }
-}
-?>
 
-<html>
-<head>
-<script type="text/javascript">
-$(document).ready(function(){
-$("#nowplaying").load('/plugin.php?nopage=1&plugin=fpp-edmrds&page=nowplaying.php');
-});
 
-</script>
-</head>
+<br />
 
-<div id="rds" class="settings">
+
+
+
+<br />
+
+<div id="EDMRDSsettings" class="settings">
 <fieldset>
-<legend>EDM-LCD-RDS-EP Support Instructions</legend>
+<legend>EDM RDS Settings</legend>
 
-<p>Before you use the RDS capabilities of your EDM FM transmitter you must be comfortable 
-with soldering and connect the SCL and SDA pins from the RDS chip located within the EDM FM transmitter 
-to two pins on the raspberry Pi. Currently the two PINs to use are pin 23 and 24 for SCL and SDA respectively. <br><br>
-<br>
-Configuration of the RDS settings for the EDM transmitter can be found here: http://www.edmdesign.com/docs/EDM-TX-RDS.pdf.
-Information on the RDS chip inside the EDM transmitter can be found here: http://pira.cz/rds/mrds192.pdf
-. Once this connection is made than you can read and set the RDS information on the unit.
-</p>
+<p>RDS Station - Sent 8 characters at a time.  Max of 64 characters.<br />
+Station Text: <?php PrintSettingTextSaved("StationText", 2, 0, 64, 32, "fpp-edmrds", "Merry   Christ- mas"); ?>
 
-<p>When you create your MP3 and OGG files, make sure you tag them with Artist and Title fields. You can upload the MP3s and OGG files through the
-File Manager in the Content Setup menu. Once the tags are set, this plug in will automatically update the RDS text when the file is played!</p>
-<p>Known Issues:
-<ul>
-<li>NONE</li>
-</ul>
+<br />
 
-<form method="post" action="/plugin.php?plugin=fpp-edmrds&page=plugin_setup.php">
-Manually Set Station ID<br>
-<p><label for="station_ID">Station ID:</label>
-<input type="text" name="station" id="station_ID"></input>
-(Expected format: up to 8 characters)
-<input id="submit_button" name="submit" type="submit" class="buttons" value="Set Station ID">
-</p>
-</form>
+<p>RDS Text: <?php PrintSettingTextSaved("RDSTextText", 2, 0, 64, 32, "fpp-edmrds", "[{Artist} - {Title}]"); ?>
+<p>
+Place {Artist} or {Title} where the media artist/title should be placed. Area's wrapped in brackets ( [] ) will not be output unless media is present.
 
-<span id="nowplaying">Now Playing:<br>
-Station ID:</span>
 
-<p>To report a bug, please file it against the fpp-vastfmt plugin project here:
-<a href="https://github.com/FalconChristmas/fpp-edmrds/issues/new" target="_new">fpp-edmrds GitHub Issues</a></p>
-
+<p>Program Type (PTY North America / Europe): <?php PrintSettingSelect("Pty", "Pty", 2, 0, 2,
+Array(
+"0 - None / None"=>0, 
+"1 - News / News"=>1, 
+"2 - Information / Current Affairs"=>2, 
+"3 - Sport / Information"=>3, 
+"4 - Talk / Sport"=>4, 
+"5 - Rock / Education"=>5, 
+"6 - Classic Rock / Drama"=>6, 
+"7 - Adult Hits / Culture"=>7, 
+"8 - Soft Rock / Science"=>8, 
+"9 - Top 40 / Varied"=>9, 
+"10 - Country / Pop"=>10, 
+"11 - Oldies / Rock"=>11, 
+"12 - Soft Music / Easy Listening"=>12, 
+"13 - Nostalgia / Light Classical"=>13, 
+"14 - Jazz / Serious Classical"=>14, 
+"15 - Classical / Other Music"=>15, 
+"16 - R&B / Weather"=>16, 
+"17 - Soft R&B / Finance"=>17, 
+"18 - Language / Childrens"=>18, 
+"19 - Religious Music / Social Affairs"=>19, 
+"20 - Religious Talk / Religion"=>20, 
+"21 - Personality / Phone-In"=>21, 
+"22 - Public / Travel"=>22, 
+"23 - College / Leisure"=>23, 
+"24 - --- / Jazz"=>24, 
+"25 - --- / Country"=>25, 
+"26 - --- / National Music"=>26, 
+"27 - --- / Oldies"=>27, 
+"28 - --- / Folk"=>28, 
+"29 - Weather / Documentary"=>29), 
+"fpp-edmrds", ""); ?> - <a href="https://www.electronics-notes.com/articles/audio-video/broadcast-audio/rds-radio-data-system-pty-codes.php">Additional PTY information</a></p>
 </fieldset>
 </div>
+
 <br />
-</html>
