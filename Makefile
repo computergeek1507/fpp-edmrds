@@ -6,7 +6,7 @@ all: libfpp-edmrds.$(SHLIB_EXT)
 debug: all
 
 CFLAGS+=-I. -I./edmrds -I$(USBHEADERPATH)
-OBJECTS_fpp_rdmrds_so += src/FPPEDMRDS.o
+OBJECTS_fpp_rdmrds_so += src/FPPEDMRDS.o  src/I2C_BitBang.o
 LIBS_fpp_rdmrds_so += -L$(SRCDIR) -lfpp -ljsoncpp
 CXXFLAGS_src/FPPEDMRDS.o += -I$(SRCDIR)
 

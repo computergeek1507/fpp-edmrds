@@ -13,13 +13,7 @@
 #include "Plugin.h"
 #include "log.h"
 
-#include "util/I2CUtils.h"
-
-#ifdef PLATFORM_BBB
-#define I2CBUS 2
-#else
-#define I2CBUS 1
-#endif
+#include "I2C_BitBang.h"
 
 static std::string padToNearest(std::string s, int l) {
     if (!s.empty()) {
@@ -51,33 +45,25 @@ public:
        
     }
     virtual ~FPPEDMRDSPlugin() {
-        if (i2c) {
-        delete i2c;
-    }
+
     }
 
     bool startRDS() {
-         if (i2c) {
-        delete i2c;
-    }
-
-           i2c = new I2CUtils(I2CBUS, 0xD6);
-            return true;        
-
+        
+        i2c_bb = std::make_unique<I2C_BitBang>("23","24");
+        return true;
     }
 
     void initRDS() {
         LogInfo(VB_PLUGIN, "Enabling RDS\n");
-        si4713->beginRDS();
+
         formatAndSendText(settings["StationText"], "", "", true);
         formatAndSendText(settings["RDSTextText"], "", "", false);
     }
     
     
     void stopRDS() {
-         if (i2c) {
-        delete i2c;
-		}
+        
     }
 
 void setRDSBuffer(uint8_t address, const std::string &station) {
@@ -105,7 +91,7 @@ void setRDSBuffer(uint8_t address, const std::string &station) {
 
     std::vector<uint8_t> resp(6);
     if (station.size() != 0) {
-		i2c->writeBlockData(address, &buf[0], buf.size());
+		i2c_bb->i2c_write_block_data(0xD6, address, &buf[0], buf.size());
     }
 }
     
@@ -114,9 +100,6 @@ void setRDSBuffer(uint8_t address, const std::string &station) {
         
         int artistIdx = -1;
         int titleIdx = -1;
-
-        if (!si4713)
-            return;
 
         for (int x = 0; x < text.length(); x++) {
             if (text[x] == '[') {
@@ -201,7 +184,7 @@ void setRDSBuffer(uint8_t address, const std::string &station) {
         LogDebug(VB_PLUGIN, "Setting \"%s\": \"%s\"\n", s.c_str(), settings[s].c_str());
     }
     
-    I2CUtils *i2c = nullptr;
+    std::unique_ptr<I2C_BitBang> i2c_bb{nullptr};
     std::string lastRDS;
 };
 
