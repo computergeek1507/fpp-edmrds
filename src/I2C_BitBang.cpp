@@ -71,7 +71,7 @@ void I2C_BitBang::i2c_start_cond()
     // if started, do a restart condition
     // set SDA to 1
     set_SDA();
-    I2C_delay();
+    i2c_delay();
     set_SCL();
     while (read_SCL() == 0) { // Clock stretching
       // You should add timeout to this loop
@@ -79,7 +79,7 @@ void I2C_BitBang::i2c_start_cond()
     }
 
     // Repeated start setup time, minimum 4.7us
-    I2C_delay();
+    i2c_delay();
   }
 
   if (read_SDA() == 0) {
@@ -88,7 +88,7 @@ void I2C_BitBang::i2c_start_cond()
 
   // SCL is high, set SDA from 1 to 0.
   clear_SDA();
-  I2C_delay();
+  i2c_delay();
   clear_SCL();
   started = true;
 }
@@ -97,7 +97,7 @@ void I2C_BitBang::i2c_stop_cond()
 {
   // set SDA to 0
   clear_SDA();
-  I2C_delay();
+  i2c_delay();
 
   set_SCL();
   // Clock stretching
@@ -107,11 +107,11 @@ void I2C_BitBang::i2c_stop_cond()
   }
 
   // Stop bit setup time, minimum 4us
-  I2C_delay();
+  i2c_delay();
 
   // SCL is high, set SDA from 0 to 1
   set_SDA();
-  I2C_delay();
+  i2c_delay();
 
   if (read_SDA() == 0) {
     arbitration_lost(__func__);
@@ -130,13 +130,13 @@ void I2C_BitBang::i2c_write_bit(bool bit)
   }
 
   // SDA change propagation delay
-  I2C_delay();
+  i2c_delay();
 
   // Set SCL high to indicate a new valid SDA value is available
   set_SCL();
 
   // Wait for SDA value to be read by target, minimum of 4us for standard mode
-  I2C_delay();
+  i2c_delay();
 
   while (read_SCL() == 0) { // Clock stretching
     // You should add timeout to this loop
@@ -162,7 +162,7 @@ bool I2C_BitBang::i2c_read_bit()
   set_SDA();
 
   // Wait for SDA value to be written by target, minimum of 4us for standard mode
-  I2C_delay();
+  i2c_delay();
 
   // Set SCL high to indicate a new valid SDA value is available
   set_SCL();
@@ -173,7 +173,7 @@ bool I2C_BitBang::i2c_read_bit()
   }
 
   // Wait for SDA value to be written by target, minimum of 4us for standard mode
-  I2C_delay();
+  i2c_delay();
 
   // SCL is high, read out bit
   bit = read_SDA();
@@ -232,7 +232,7 @@ unsigned char I2C_BitBang::i2c_read_byte(bool nack, bool send_stop)
 
 void I2C_BitBang::i2c_delay()
 { 
-    std::this_thread::sleep_for( std::chrono::milliseconds(1) );
+    std::this_thread::sleep_for( std::chrono::milliseconds(2) ); //500hz
 }
 
 void I2C_BitBang::i2c_wait()
